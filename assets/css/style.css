@@ -17,6 +17,10 @@ hr {
     margin-bottom: 10px;
 }
 
+.col-lg-12 {
+    border-radius: 3px;
+}
+
 .ffDate {
     display: inline-block;
 }
