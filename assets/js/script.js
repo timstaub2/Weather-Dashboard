@@ -28,8 +28,8 @@ function getCities() {
 
     for (var i = 0; i < cityList.length; i++) {
         var citiesDiv = $("#citiesDiv");
-        var cityButton = $("<button>").attr("data-value", cityList[i].name).text(cityList[i].name.charAt(0).toUpperCase() + cityList[i].name.slice(1));
-        cityButton.attr("class", "btn-primary cityButton").css("width", "100%").css("padding", "5px");
+        var cityButton = $("<button>").attr("data-value",cityList[i].name).text(cityList[i].name.charAt(0).toUpperCase() + cityList[i].name.slice(1));
+        cityButton.attr("class","btn-primary cityButton").css("width", "100%").css("padding", "5px");
         citiesDiv.prepend(cityButton);
     }
     $(".cityButton").on("click", function () {
@@ -79,7 +79,7 @@ function callWeather() {
             weatherTodayTitle.empty();
             var iconVar = response.weather[0].icon;
             var iconURL = "https://openweathermap.org/img/wn/" + iconVar + "@2x.png";
-            var date = moment().format("1").slice(0, 5);
+            var date = moment().format("(l)");
             var temp = response.main.temp.toFixed(0);
             var humid = response.main.humidity;
             var wind = response.wind.speed.toFixed(0);
@@ -87,14 +87,14 @@ function callWeather() {
             iconEl.attr("src", iconURL);
             iconEl.attr("class", "todayIcon");
             if (city.length < 1) {
-                var todayEl = $("<h2>").text(cityList[cityList.length - 1].name.charAt(0).toUpperCase() + cityList[cityList.length - 1].name.slice(1) + " " + date);
+                var todayEl = $("<h2>").text(cityList[cityList.length - 1].name.charAt(0).toUpperCase() + cityList[cityList.length -1].name.slice(1) + " " + date);
             }
             else {
-                var todayEl = $("<h2>").text(city.charAt(0).toUpperCase() + city.slice(1) + date);
+                var todayEl = $("<h2>").text(city.charAt(0).toUpperCase() + city.slice(1) + " " + date);
             }
             todayEl.attr("class", "todayDate");
             todayEl.css("margin-left", "10px")
-            var tempEl = $("<h3>").text("temp: " + temp + "° F");
+            var tempEl = $("<h3>").text("Temp: " + temp + "° F");
             var humidEl = $("<h3>").text("Humidity: " + humid + "%");
             var windEl = $("<h3>").text("Wind: " + wind + " MPH");
             weatherTodayTitle.prepend(todayEl);
@@ -126,7 +126,7 @@ function callWeather() {
                         uvEle.css("bakcground", "yellow");
                     }
                     else if (uvVal > 5 && uvVal <= 7.5) {
-                        uvEle.css("bakcground", "yelloorangew");
+                        uvEle.css("bakcground", "yelloworange");
                     }
                     else if (uvVal > 7.5) {
                         uvEle.css("background", "red");
@@ -145,7 +145,7 @@ function callForecast() {
             for (var i = 0; i < 5; i++) {
                 var ff = $("<div>");
                 ff.attr("class", "ffDiv" + [i])
-                var date = response.list[((8 * [i]) + 6)].dt_txt.slice(5, 10);
+                var date = response.list[((8 * [i]) + 6)].dt_txt.slice(2, 10);
                 var iconVar = response.list[((8 * [i]) + 6)].weather[0].icon;
                 var iconURL = "https://openweathermap.org/img/wn/" + iconVar + "@2x.png";
                 var temp = response.list[((8 * [i]) + 6)].main.temp.toFixed(0);
