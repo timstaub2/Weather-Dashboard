@@ -27,7 +27,7 @@ function getCities() {
     }
 
     for (var i = 0; i < cityList.length; i++) {
-        var citiesDiv = $("#citiesDiv");
+        var citiesDiv = $("#citiesDev");
         var cityButton = $("<button>").attr("data-value",cityList[i].name).text(cityList[i].name.charAt(0).toUpperCase() + cityList[i].name.slice(1));
         cityButton.attr("class","btn-primary cityButton").css("width", "100%").css("padding", "5px");
         citiesDiv.prepend(cityButton);
@@ -123,10 +123,10 @@ function callWeather() {
                         uvEle.css("background", "green");
                     }
                     else if (uvVal > 2.5 && uvVal <= 5) {
-                        uvEle.css("bakcground", "yellow");
+                        uvEle.css("background", "yellow");
                     }
                     else if (uvVal > 5 && uvVal <= 7.5) {
-                        uvEle.css("bakcground", "yelloworange");
+                        uvEle.css("background", "orange");
                     }
                     else if (uvVal > 7.5) {
                         uvEle.css("background", "red");
@@ -145,13 +145,16 @@ function callForecast() {
             for (var i = 0; i < 5; i++) {
                 var ff = $("<div>");
                 ff.attr("class", "ffDiv" + [i])
-                var date = response.list[((8 * [i]) + 6)].dt_txt.slice(2, 10);
+                var date = response.list[((8 * [i]) + 6)].dt_txt;
+                var dateObj = new Date(date)
+                // addin one to month as months are zero based 
+                var datestring = (dateObj.getMonth()+1) + "/" + dateObj.getUTCDate() + "/" + dateObj.getFullYear();
                 var iconVar = response.list[((8 * [i]) + 6)].weather[0].icon;
                 var iconURL = "https://openweathermap.org/img/wn/" + iconVar + "@2x.png";
                 var temp = response.list[((8 * [i]) + 6)].main.temp.toFixed(0);
                 var humid = response.list[((8 * [i]) + 6)].main.humidity;
                 var wind = response.list[((8 * [i]) + 6)].wind.speed.toFixed(0);
-                var dateEl = $("<h3>").text(date);
+                var dateEl = $("<h3>").text(datestring);
                 dateEl.attr("class", "ffDate");
                 var iconEl = $("<img>");
                 iconEl.attr("src", iconURL);
